@@ -1,5 +1,10 @@
 # mathler (take-home)
 
+> Ellapsed time: 8h (3h on research, requirements and design, 5h on setup, theme, base components and layout)
+> Approach: create a 80/20 POC, meaning that's 80% functional but able to showcase a little of each skill
+> Goal:
+> ![mathler mockup](./app/public/mockup_game.png) ![mathler mockup](./app/public/mockup_modal.png)
+
 #### FIRST THOUGHTS
 
 - it's a math problem
