@@ -1,24 +1,35 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ESNext",
+    "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",
+    "allowJs": true,
     "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "jsxImportSource": "@emotion/react",
+    "paths": {
+      "@mathler/*": ["./src/*"],
+      "@stories/*": ["./src/stories/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@store/*": ["./src/store/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@tests/*": ["./tests/*"]
+    }
   },
-  "include": ["src"],
+  "include": ["guidelines", "src", "tests", "playwright.config.ts", "globalSetup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
