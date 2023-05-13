@@ -33,9 +33,15 @@ export const Wrapper = styled('div')<KeyboardKeyProps>(({ status }) => ({
   justifyContent: 'center',
   minHeight: '5rem',
   minWidth: '5rem',
-  transition: '200ms ease-in-out',
+  transform: 'scale(1)',
+  transformOrigin: 'center',
+  transition: '100ms ease-in-out',
   width: '5rem',
   ...statusStyles({ status }),
+
+  '&:focus, &:hover': {
+    transform: 'scale(1.1)',
+  },
 }));
 
 export const StyledIcon = styled(Icon)(() => ({

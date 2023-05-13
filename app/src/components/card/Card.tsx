@@ -7,9 +7,21 @@ export type CardProps = {
   status: 'none' | 'wrong' | 'almost' | 'correct';
 };
 
+const ariaMapper = {
+  wrong: 'wrong',
+  almost: 'out of place',
+  correct: 'correct',
+};
+
 const Card: React.FC<CardProps> = ({ label = '', isActive, isFocused, status = 'none' }) => {
+  const ariaProps = {
+    ...(status !== 'none' && { 'aria-label': `number "${label}" is ${ariaMapper[status]}` }),
+    'aria-roledescription': 'number',
+    role: 'text',
+  };
+
   return (
-    <Wrapper isActive={isActive} isFocused={isActive && isFocused} status={status}>
+    <Wrapper isActive={isActive} isFocused={isActive && isFocused} status={status} {...ariaProps}>
       {label}
     </Wrapper>
   );

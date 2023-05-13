@@ -4,15 +4,31 @@ import { Wrapper, GridKeys } from './Keyboard.styles';
 
 type KeyboardProps = {
   isAdvanced?: boolean;
+  onEnter?: () => void;
+  onDelete?: () => void;
 };
 
-const Keyboard: React.FC<KeyboardProps> = ({ isAdvanced = false }) => {
+const Keyboard: React.FC<KeyboardProps> = ({ isAdvanced = false, onEnter, onDelete }) => {
+  const handleOnclick = (keyId: string) => {
+    if (keyId === 'enter') return onEnter?.();
+    if (keyId === 'delete') return onDelete?.();
+    return () => {};
+  };
+
   return (
     <Wrapper>
       <GridKeys>
         {configKeyboard.map(({ id, label, icon, isAdvancedKey }) => {
-          if (isAdvancedKey && !isAdvanced) return <div />;
-          return <KeyboardKey key={id} label={label} icon={icon} status="none" />;
+          if (isAdvancedKey && !isAdvanced) return <div key={id} />;
+          return (
+            <KeyboardKey
+              key={id}
+              label={label}
+              icon={icon}
+              status="none"
+              onClick={() => handleOnclick(id)}
+            />
+          );
         })}
       </GridKeys>
     </Wrapper>
