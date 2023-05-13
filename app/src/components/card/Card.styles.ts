@@ -25,6 +25,7 @@ const statusStyles = ({ isActive, isFocused, status }: CardProps): CSSObject => 
 export const Wrapper = styled('div')<CardProps>(({ isActive, isFocused, status }) => ({
   ...typo.KBD_S2,
   alignItems: 'center',
+  backfaceVisibility: 'hidden',
   border: '0.2rem solid transparent',
   borderRadius: '0.4rem',
   color: isActive ? colors.thunder : colors.white,

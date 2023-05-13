@@ -4,11 +4,11 @@ import { Wrapper } from './Toast.styles';
 
 export type ToastProps = {
   label?: string;
+  onClick?: () => void;
 };
 
-const Toast: React.FC<ToastProps> = ({ label = '' }) => {
+const Toast: React.FC<ToastProps> = ({ label = '', onClick }) => {
   const [containerEl] = useState(document.createElement('div'));
-  const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
     document.body.appendChild(containerEl);
@@ -18,11 +18,8 @@ const Toast: React.FC<ToastProps> = ({ label = '' }) => {
   }, []);
 
   const handleOnClick = (ev: React.MouseEvent) => {
-    setIsActive(false);
-    containerEl.remove();
+    onClick?.();
   };
-
-  if (!isActive) return <></>;
 
   return createPortal(
     <Wrapper role="alertdialog" aria-modal onClick={handleOnClick}>

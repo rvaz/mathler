@@ -4,7 +4,7 @@ import * as typo from '@theme/typography';
 
 export const Wrapper = styled('div')(() => ({
   alignItems: 'center',
-  backdropFilter: 'blur(0.8rem)',
+  backdropFilter: 'blur(0.4rem)',
   backgroundColor: colors.cloudA40,
   display: 'flex',
   justifyContent: 'space-between',
