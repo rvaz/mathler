@@ -1,6 +1,6 @@
 # mathler (take-home)
 
-> Ellapsed time: 10.5h (3h on research, requirements and design, 5h on setup, theme, base components and layout, 2.5h on logic and animations)
+> Ellapsed time: 11h (3h on research, requirements and design, 5.5h on setup, theme, base components and layout, 2.5h on logic and animations)
 >
 > Approach: create a 80/20 POC, meaning that's 80% functional but able to showcase a little of each skill
 >
