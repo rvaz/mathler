@@ -1,9 +1,11 @@
-import { Wrapper } from './Card.styles';
+import { Wrapper, Back } from './Card.styles';
 
 export type CardProps = {
   label?: string;
+  position?: number;
   isActive?: boolean;
   isFocused?: boolean;
+  animateReveal?: boolean;
   status: 'none' | 'wrong' | 'almost' | 'correct';
 };
 
@@ -13,7 +15,14 @@ const ariaMapper = {
   correct: 'correct',
 };
 
-const Card: React.FC<CardProps> = ({ label = '', isActive, isFocused, status = 'none' }) => {
+const Card: React.FC<CardProps> = ({
+  label = '',
+  position = 0,
+  isActive,
+  isFocused,
+  animateReveal,
+  status = 'none',
+}) => {
   const ariaProps = {
     ...(status !== 'none' && { 'aria-label': `number "${label}" is ${ariaMapper[status]}` }),
     'aria-roledescription': 'number',
@@ -21,8 +30,16 @@ const Card: React.FC<CardProps> = ({ label = '', isActive, isFocused, status = '
   };
 
   return (
-    <Wrapper isActive={isActive} isFocused={isActive && isFocused} status={status} {...ariaProps}>
+    <Wrapper
+      position={position}
+      isActive={isActive}
+      isFocused={isActive && isFocused}
+      animateReveal={animateReveal}
+      status={animateReveal ? 'none' : status}
+      {...ariaProps}
+    >
       {label}
+      {animateReveal && <Back status={status}>{label}</Back>}
     </Wrapper>
   );
 };

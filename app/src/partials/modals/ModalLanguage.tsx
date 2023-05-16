@@ -1,7 +1,7 @@
-import Modal from '@mathler/components/modal';
+import Modal, { ModalProps } from '@mathler/components/modal';
 
-const ModalLanguage: React.FC<{}> = () => {
-  return <Modal title="Language" />;
+const ModalLanguage: React.FC<ModalProps> = ({ ...rest }) => {
+  return <Modal {...rest} title="Language" />;
 };
 
 export default ModalLanguage;

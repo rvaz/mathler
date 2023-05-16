@@ -1,10 +1,10 @@
-import Modal from '@mathler/components/modal';
+import Modal, { ModalProps } from '@mathler/components/modal';
 import Card from '@mathler/components/card';
 import { CardExample } from './ModalAbout.styles';
 
-const ModalAbout: React.FC<{}> = () => {
+const ModalAbout: React.FC<ModalProps> = ({ ...rest }) => {
   return (
-    <Modal title="How to play Mathler">
+    <Modal {...rest} title="How to play Mathler">
       <br />
       <p>
         Try to find the hidden calculation in 6 guesses!

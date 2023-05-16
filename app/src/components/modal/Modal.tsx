@@ -3,11 +3,12 @@ import { createPortal } from 'react-dom';
 import { Backdrop, Wrapper, H2, StyledButton, ContentWrapper } from './Modal.styles';
 
 export type ModalProps = {
-  title: string;
+  title?: string;
+  onModalClose?: () => void;
   children?: React.ReactNode;
 };
 
-const Modal: React.FC<ModalProps> = ({ title, children }) => {
+const Modal: React.FC<ModalProps> = ({ title = '', onModalClose, children }) => {
   const [containerEl] = useState(document.createElement('div'));
   const [isActive, setIsActive] = useState(true);
 
@@ -20,6 +21,7 @@ const Modal: React.FC<ModalProps> = ({ title, children }) => {
 
   const handleOnClose = (ev: React.MouseEvent) => {
     setIsActive(false);
+    onModalClose?.();
   };
 
   if (!isActive) return <></>;
