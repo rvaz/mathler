@@ -41,14 +41,14 @@ const Game = () => {
   const renderModal = () => {
     if (!activeModal) return <></>;
     const Elem = modalMapper[activeModal as keyof typeof modalMapper];
-    return <Elem />;
+    return <Elem onModalClose={() => setActiveModal('')} />;
   };
 
   return (
     <Container>
       {showToast && <Toast label="Not enough numbers" onClick={() => setShowToast(false)} />}
       <Wrapper>
-        <Navbar title="Take-Home" onClick={(newActiveModal) => setActiveModal(newActiveModal)} />
+        <Navbar title="Take-Home" onClick={setActiveModal} />
         <Challenge
           animateReveal={validateAnswer}
           animateShakeRow={animateShakeRow}

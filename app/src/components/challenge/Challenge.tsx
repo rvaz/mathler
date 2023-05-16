@@ -18,12 +18,12 @@ const prevRow = [
 ];
 
 const currRow = [
-  { id: '200', label: '8', status: 'wrong', isActive: true, isFocused: false },
-  { id: '201', label: '/', status: 'almost', isActive: true, isFocused: false },
-  { id: '202', label: '2', status: 'almost', isActive: true, isFocused: false },
+  { id: '200', label: '8', status: 'almost', isActive: true, isFocused: false },
+  { id: '201', label: '/', status: 'wrong', isActive: true, isFocused: false },
+  { id: '202', label: '2', status: 'wrong', isActive: true, isFocused: false },
   { id: '203', label: '-', status: 'correct', isActive: true, isFocused: false },
   { id: '204', label: '1', status: 'correct', isActive: true, isFocused: false },
-  { id: '205', label: '5', status: 'wrong', isActive: true, isFocused: true },
+  { id: '205', label: '5', status: 'almost', isActive: true, isFocused: true },
 ];
 
 const Challenge: React.FC<ChallengeProps> = ({
@@ -45,13 +45,15 @@ const Challenge: React.FC<ChallengeProps> = ({
         animateReveal={animateReveal}
         onAnimationEnd={onAnimationEnd}
       >
-        {currRow.map(({ id, label, status, isActive, isFocused }) => (
+        {currRow.map(({ id, label, status, isActive, isFocused }, idx) => (
           <Card
             key={id}
             label={label}
+            position={idx}
             status={animateReveal ? status : 'none'}
-            isActive={animateReveal ? false : isActive}
-            isFocused={isFocused}
+            animateReveal={animateReveal}
+            isActive={isActive}
+            isFocused={animateReveal ? false : isFocused}
           />
         ))}
       </GridCards>

@@ -1,6 +1,6 @@
 # mathler (take-home)
 
-> Ellapsed time: 11h (3h on research, requirements and design, 5.5h on setup, theme, base components and layout, 2.5h on logic and animations)
+> Ellapsed time: 12h (3h on research, requirements and design, 5.5h on setup, theme, base components and layout, 3.5h on logic and animations)
 >
 > Approach: create a 80/20 POC, meaning that's 80% functional but able to showcase a little of each skill
 >
@@ -33,6 +33,7 @@ yarn && yarn dev
 - local storage has the solution from the get-go
 - grayed out numbers/operators can still be selected, they just loose their hover state
 - feedback and validation are presented to the user on a toast
+- if calculation starts or ends with a symbol is not validated and there is feedback if the calculation result is not the same as the problem solution
 - game has interesting settings, including multiple difficulty levels, can I achieve a scalable solution?
 - menu: how to play, title, settings, stats
 - "0" is placed at the beginning, does it make sense to have it at the end like in keyboards? (I keep going to the end looking for it)

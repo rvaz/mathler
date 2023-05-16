@@ -1,7 +1,7 @@
-import Modal from '@mathler/components/modal';
+import Modal, { ModalProps } from '@mathler/components/modal';
 
-const ModalStatistics: React.FC<{}> = () => {
-  return <Modal title="Statistics" />;
+const ModalStatistics: React.FC<ModalProps> = ({ ...rest }) => {
+  return <Modal {...rest} title="Statistics" />;
 };
 
 export default ModalStatistics;

@@ -30,8 +30,6 @@ export const GridCards = styled('div')<{ animateShakeRow?: boolean; animateRevea
     justifyContent: 'center',
     marginBottom: '0.2rem',
     transition: 'transform 500ms',
-    transform: `rotateX(${animateReveal ? '360' : '0'}deg)`,
-    transformStyle: 'preserve-3d',
   }),
 );
 
