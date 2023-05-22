@@ -1,19 +1,19 @@
 # mathler (take-home)
 
-> Ellapsed time: 12h (3h on research, requirements and design, 5.5h on setup, theme, base components and layout, 3.5h on logic and animations)
+> Ellapsed time: 16h
+> (3h on research, requirements and design, 5.5h on setup, theme, base components and layout, 7.5h on logic and animations, 0h on unit tests - 0% coverage)
 >
-> Approach: create a 80/20 POC, meaning that's 80% functional but able to showcase a little of each skill
+> Approach: breakdown each problem into small focused issues and then connect the dots; create a 80/20 POC, meaning that's 80% functional but able to showcase a little of each skill
 >
 > Hint: click on 'toast', 'delete' or 'enter' for some animations
 >
 > Goal (designed in figma):
 >
-> <img src="./app/public/mockup_game.png" width="40%" /> <img src="./app/public/mockup_modal.png" width="40%" />
+> <img src="./public/mockup_game.png" width="40%" /> <img src="./public/mockup_modal.png" width="40%" />
 
 #### HOW TO RUN THE PROJECT
 
 ```
-cd app
 yarn && yarn dev
 ```
 

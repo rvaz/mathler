@@ -36,10 +36,11 @@ export const Wrapper = styled('div')<KeyboardKeyProps>(({ status }) => ({
   transform: 'scale(1)',
   transformOrigin: 'center',
   transition: '100ms ease-in-out',
+  userSelect: 'none',
   width: '5rem',
   ...statusStyles({ status }),
 
-  '&:focus, &:hover': {
+  '&:active, &:hover': {
     transform: 'scale(1.1)',
   },
 }));

@@ -6,13 +6,19 @@ type KeyboardProps = {
   isAdvanced?: boolean;
   onEnter?: () => void;
   onDelete?: () => void;
+  onKeyPress?: (keyValue: string) => void;
 };
 
-const Keyboard: React.FC<KeyboardProps> = ({ isAdvanced = false, onEnter, onDelete }) => {
+const Keyboard: React.FC<KeyboardProps> = ({
+  isAdvanced = false,
+  onEnter,
+  onDelete,
+  onKeyPress,
+}) => {
   const handleOnclick = (keyId: string) => {
     if (keyId === 'enter') return onEnter?.();
     if (keyId === 'delete') return onDelete?.();
-    return () => {};
+    return onKeyPress?.(keyId);
   };
 
   return (
