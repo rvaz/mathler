@@ -40,7 +40,7 @@ export const Wrapper = styled('div')<CardProps>(
       animation: '600ms cubic-bezier(0.25, 2.5, 0.5, 0.5)',
       animationName: `${reveal}`,
     }),
-    animationDelay: `${position * 50}ms`,
+    animationDelay: `${position * 100}ms`,
     animationFillMode: 'both',
     border: '0.2rem solid transparent',
     height: '4rem',

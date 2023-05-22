@@ -1,12 +1,13 @@
 import { Wrapper, Back } from './Card.styles';
 
+export type CardStatus = 'none' | 'wrong' | 'almost' | 'correct';
 export type CardProps = {
   label?: string;
   position?: number;
   isActive?: boolean;
   isFocused?: boolean;
   animateReveal?: boolean;
-  status: 'none' | 'wrong' | 'almost' | 'correct';
+  status: CardStatus;
 };
 
 const ariaMapper = {

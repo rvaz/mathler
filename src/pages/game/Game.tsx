@@ -1,4 +1,8 @@
-import { useCallback, useState } from 'react';
+import type { Guess } from '@mathler/types/game';
+
+import { useEffect, useState } from 'react';
+import { getSolution, getGuesses, saveGuess } from '@utils/store';
+import { validateGuess, checkAnswer } from '@utils/game';
 import {
   ModalAbout,
   ModalLanguage,
@@ -12,6 +16,12 @@ import Challenge from '@mathler/components/challenge';
 import Keyboard from '@mathler/components/keyboard';
 import { Wrapper } from './Game.styles';
 
+const solution = eval(getSolution());
+const overMessage: { [key: string]: string } = {
+  true: 'Congratulations.',
+  false: 'Game over.',
+};
+
 const modalMapper = {
   about: ModalAbout,
   language: ModalLanguage,
@@ -20,22 +30,83 @@ const modalMapper = {
 };
 
 const Game = () => {
+  const pastGuesses = getGuesses().length;
+  const isWin =
+    pastGuesses && getGuesses()[pastGuesses - 1].every(({ status }) => status === 'correct');
+  const isOver = pastGuesses ? isWin || pastGuesses === 6 : false;
+  const emptyGuess: Guess = [
+    { id: `${pastGuesses}0`, label: '', status: 'none' },
+    { id: `${pastGuesses}1`, label: '', status: 'none' },
+    { id: `${pastGuesses}2`, label: '', status: 'none' },
+    { id: `${pastGuesses}3`, label: '', status: 'none' },
+    { id: `${pastGuesses}4`, label: '', status: 'none' },
+    { id: `${pastGuesses}5`, label: '', status: 'none' },
+  ];
+
   const [activeModal, setActiveModal] = useState('about');
-  const [validateAnswer, setValidateAnswer] = useState(false);
-  const [showToast, setShowToast] = useState(true);
+  const [toastMessage, setToastMessage] = useState(isOver ? overMessage[isWin] : '');
   const [animateShakeRow, setAnimateShakeRow] = useState(false);
+  const [animateReveal, setAnimateReveal] = useState(false);
+  const [currentGuess, setCurrentGuess] = useState<Guess>(emptyGuess);
+
+  useEffect(() => {
+    if (isOver) setToastMessage(overMessage[isWin]);
+  }, [isOver]);
+
+  const handleOnKeyPress = (keyValue: string) => {
+    setToastMessage('');
+    const keyPos = currentGuess.map(({ label }) => label).join('').length;
+    if (keyPos === 6) return;
+
+    const newGuess = [...currentGuess];
+    newGuess[keyPos].label = keyValue;
+    setCurrentGuess(newGuess);
+  };
 
   const handleOnEnter = () => {
-    setValidateAnswer(true);
+    if (isOver) {
+      setToastMessage(overMessage[isWin]);
+      return;
+    }
+
+    const guess = currentGuess.map(({ label }) => label).join('');
+    const guessFeedback = validateGuess(guess, solution);
+
+    if (typeof guessFeedback === 'string') {
+      setToastMessage(guessFeedback);
+      setAnimateShakeRow(true);
+      return;
+    }
+
+    if (guessFeedback) {
+      const checkedGuess = checkAnswer(currentGuess, getSolution());
+      setCurrentGuess(checkedGuess);
+      setAnimateReveal(true);
+    }
   };
 
   const handleOnDelete = () => {
-    setShowToast(true);
-    setAnimateShakeRow(true);
+    if (isOver) {
+      setToastMessage(overMessage[isWin]);
+      return;
+    }
+
+    setToastMessage('');
+    const keyPos = currentGuess.map(({ label }) => label).join('').length;
+    if (keyPos === 0) return;
+
+    const newGuess = [...currentGuess];
+    newGuess[keyPos - 1].label = '';
+    setCurrentGuess(newGuess);
   };
 
   const handleOnAnimationEnd = () => {
-    setAnimateShakeRow(false);
+    if (animateReveal) {
+      saveGuess(currentGuess);
+      setCurrentGuess(emptyGuess);
+    }
+    setAnimateReveal(false);
+    setAnimateShakeRow(false); // reset this animation
   };
 
   const renderModal = () => {
@@ -46,15 +117,17 @@ const Game = () => {
 
   return (
     <Container>
-      {showToast && <Toast label="Not enough numbers" onClick={() => setShowToast(false)} />}
+      {!!toastMessage && <Toast label={toastMessage} onClick={() => setToastMessage('')} />}
       <Wrapper>
         <Navbar title="Take-Home" onClick={setActiveModal} />
         <Challenge
-          animateReveal={validateAnswer}
+          hint={solution}
+          currentGuess={isOver ? undefined : currentGuess}
+          animateReveal={animateReveal}
           animateShakeRow={animateShakeRow}
           onAnimationEnd={handleOnAnimationEnd}
         />
-        <Keyboard onEnter={handleOnEnter} onDelete={handleOnDelete} />
+        <Keyboard onEnter={handleOnEnter} onDelete={handleOnDelete} onKeyPress={handleOnKeyPress} />
       </Wrapper>
       {renderModal()}
     </Container>
