@@ -1,4 +1,4 @@
-import type { CardStatus } from '@mathler/components/card/Card';
+import type { CardStatus } from '@mathler/components/card';
 
 export type GuessEntry = {
   id: string;

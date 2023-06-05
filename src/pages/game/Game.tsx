@@ -1,6 +1,6 @@
-import type { Guess } from '@mathler/types/game';
+import type { Guess, GuessEntry } from '@mathler/types/game';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { getSolution, getGuesses, saveGuess } from '@utils/store';
 import { validateGuess, checkAnswer } from '@utils/game';
 import {
@@ -16,7 +16,7 @@ import Challenge from '@mathler/components/challenge';
 import Keyboard from '@mathler/components/keyboard';
 import { Wrapper } from './Game.styles';
 
-const solution = eval(getSolution());
+let solution = eval(getSolution());
 const overMessage: { [key: string]: string } = {
   true: 'Congratulations.',
   false: 'Game over.',
@@ -32,7 +32,10 @@ const modalMapper = {
 const Game = () => {
   const pastGuesses = getGuesses().length;
   const isWin =
-    pastGuesses && getGuesses()[pastGuesses - 1].every(({ status }) => status === 'correct');
+    pastGuesses &&
+    getGuesses()[pastGuesses - 1].every(
+      ({ status }: { status: GuessEntry['status'] }) => status === 'correct',
+    );
   const isOver = pastGuesses ? isWin || pastGuesses === 6 : false;
   const emptyGuess: Guess = [
     { id: `${pastGuesses}0`, label: '', status: 'none' },
@@ -48,6 +51,12 @@ const Game = () => {
   const [animateShakeRow, setAnimateShakeRow] = useState(false);
   const [animateReveal, setAnimateReveal] = useState(false);
   const [currentGuess, setCurrentGuess] = useState<Guess>(emptyGuess);
+
+  useLayoutEffect(() => {
+    if (!solution) {
+      solution = eval(getSolution());
+    }
+  }, [solution]);
 
   useEffect(() => {
     if (isOver) setToastMessage(overMessage[isWin]);
